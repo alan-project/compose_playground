@@ -7,12 +7,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,10 +20,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -33,51 +34,69 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
+            /**
+             * Lazy Column
+             */
+  /*          LazyColumn {
+                itemsIndexed(
+                    listOf("This", "is", "Jetpack", "Compose")
+                ) { index, string ->
+                    Text(
+                        text = string,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 24.dp)
+                    )
+                }
 
+            }*/
 
 
             /**
              * Scaffold
              */
-          /*  val scaffoldState = rememberScaffoldState()
-            var textFieldState by remember {
-                mutableStateOf("")
-            }
-            val scope = rememberCoroutineScope()
+            /*  val scaffoldState = rememberScaffoldState()
+              var textFieldState by remember {
+                  mutableStateOf("")
+              }
+              val scope = rememberCoroutineScope()
 
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                scaffoldState = scaffoldState
-            ){ paddingValues->
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 30.dp)
-                ) {
-                    TextField(
-                        value = textFieldState,
-                        label = {
-                            Text("Enter your name")
-                        },
-                        onValueChange = {
-                            textFieldState = it
-                        },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = {
-                        scope.launch {
-                            scaffoldState.snackbarHostState.showSnackbar("Hello $textFieldState")
-                        }
+              Scaffold(
+                  modifier = Modifier.fillMaxSize(),
+                  scaffoldState = scaffoldState
+              ){ paddingValues->
+                  Column(
+                      horizontalAlignment = Alignment.CenterHorizontally,
+                      verticalArrangement = Arrangement.Center,
+                      modifier = Modifier
+                          .fillMaxSize()
+                          .padding(horizontal = 30.dp)
+                  ) {
+                      TextField(
+                          value = textFieldState,
+                          label = {
+                              Text("Enter your name")
+                          },
+                          onValueChange = {
+                              textFieldState = it
+                          },
+                          singleLine = true,
+                          modifier = Modifier.fillMaxWidth(),
+                      )
+                      Spacer(modifier = Modifier.height(16.dp))
+                      Button(onClick = {
+                          scope.launch {
+                              scaffoldState.snackbarHostState.showSnackbar("Hello $textFieldState")
+                          }
 
-                    }) {
-                        Text("Please greet me")
-                    }
-                }
-            }*/
+                      }) {
+                          Text("Please greet me")
+                      }
+                  }
+              }*/
 
 
             /**
