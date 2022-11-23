@@ -1,13 +1,15 @@
 package com.example.compose
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -17,15 +19,18 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.*
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ChainStyle
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintSet
-import androidx.constraintlayout.compose.Dimension
 import kotlin.random.Random
 
 
@@ -35,6 +40,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
+            TextContainer()
             /**
              * Constraint Layout
              */
@@ -219,6 +225,123 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun TextContainer() {
+    val name = "KIM"
+
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = Modifier
+            .padding(10.dp)
+            .fillMaxSize()
+            .verticalScroll(scrollState),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        Text(
+            text = "Hello $name",
+            style = TextStyle(
+                textAlign = TextAlign.Center
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Yellow)
+        )
+        Text(
+            text = "Hello $name",
+            style = TextStyle(
+                textAlign = TextAlign.Start
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Yellow)
+        )
+        Text(
+            text = stringResource(id = R.string.dummy_short_text),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            style = TextStyle(
+                textAlign = TextAlign.Justify,
+                textDecoration = TextDecoration.combine(
+                    listOf(
+                        TextDecoration.Underline,
+                        TextDecoration.LineThrough
+                    )
+                )
+            ),
+            fontWeight = FontWeight.W200,
+            fontSize = 28.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Yellow),
+            fontFamily = FontFamily.Monospace
+        )
+
+        Text(
+            text = stringResource(id = R.string.dummy_short_text),
+            style = TextStyle(
+                textAlign = TextAlign.Justify,
+                fontFamily = FontFamily(Font(R.font.roboto_regular, weight = FontWeight.Medium)),
+                lineHeight = 40.sp
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Yellow),
+        )
+
+        Text(
+            text = buildAnnotatedString {
+                append("Hello")
+
+                withStyle(
+                    style = SpanStyle(
+                        color = Color.Blue,
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.ExtraBold
+                    )) {
+                    append("working Hard?")
+                }
+
+                append("Hell yeah")
+            }
+        )
+
+        val words = stringResource(id = R.string.dummy_short_text)
+        var wordsArray = words.split(" ")
+        Text(
+            text = buildAnnotatedString {
+                wordsArray.forEach {
+                    if(it == "힘차게"){
+                        withStyle(
+                            style = SpanStyle(
+                                color = Color.Blue,
+                                fontSize = 40.sp,
+                                fontWeight = FontWeight.ExtraBold
+                            )) {
+                            append("$it ")
+                        }
+                    }else{
+                        append("$it ")
+                    }
+                }
+            }
+        )
+
+        val context = LocalContext.current
+        ClickableText(text = AnnotatedString("click me!"), onClick = {
+            Log.d("MainActivity","Clicked")
+        })
+
+
+        Text(text = stringResource(id = R.string.dummy_long_text),
+            style = TextStyle(lineHeight = 20.sp)
+        )
+
+
+
+    }
+}
+
+@Composable
 fun ColorBox(
     modifier: Modifier = Modifier,
     updateColor: (Color) -> Unit,
@@ -319,4 +442,5 @@ fun Greeting(name: String) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
+    TextContainer()
 }
