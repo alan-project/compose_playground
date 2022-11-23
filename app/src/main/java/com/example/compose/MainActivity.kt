@@ -40,7 +40,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
+            /**
+             * Text
+             */
             TextContainer()
+
+
             /**
              * Constraint Layout
              */
@@ -222,6 +227,11 @@ class MainActivity : ComponentActivity() {
              }*/
         }
     }
+}
+
+@Composable
+fun ShapeContainer(){
+
 }
 
 @Composable
